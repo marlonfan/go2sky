@@ -18,10 +18,10 @@ import (
 	"math"
 	"time"
 
-	"github.com/tetratelabs/go2sky/internal/tool"
-	"github.com/tetratelabs/go2sky/propagation"
-	"github.com/tetratelabs/go2sky/reporter/grpc/common"
-	v2 "github.com/tetratelabs/go2sky/reporter/grpc/language-agent-v2"
+	"github.com/marlonfan/go2sky/internal/tool"
+	"github.com/marlonfan/go2sky/propagation"
+	"github.com/marlonfan/go2sky/reporter/grpc/common"
+	v2 "github.com/marlonfan/go2sky/reporter/grpc/language-agent-v2"
 )
 
 // SpanType is used to identify entry, exit and local

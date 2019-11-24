@@ -19,7 +19,7 @@ import (
 	"log"
 	"os"
 
-	"github.com/tetratelabs/go2sky"
+	"github.com/marlonfan/go2sky"
 )
 
 const (

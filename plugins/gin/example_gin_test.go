@@ -21,9 +21,9 @@ import (
 	"sync"
 
 	"github.com/gin-gonic/gin"
-	"github.com/tetratelabs/go2sky"
-	h "github.com/tetratelabs/go2sky/plugins/http"
-	"github.com/tetratelabs/go2sky/reporter"
+	"github.com/marlonfan/go2sky"
+	h "github.com/marlonfan/go2sky/plugins/http"
+	"github.com/marlonfan/go2sky/reporter"
 )
 
 func ExampleMiddleware() {
