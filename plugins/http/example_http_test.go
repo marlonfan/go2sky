@@ -23,8 +23,8 @@ import (
 
 	"github.com/gorilla/mux"
 
-	"github.com/tetratelabs/go2sky"
-	"github.com/tetratelabs/go2sky/reporter"
+	"github.com/marlonfan/go2sky"
+	"github.com/marlonfan/go2sky/reporter"
 )
 
 func ExampleNewServerMiddleware() {

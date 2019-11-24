@@ -1,28 +1,28 @@
 # GO2Sky
 
 [![CircleCI](https://circleci.com/gh/SkyAPM/go2sky.svg?style=svg)](https://circleci.com/gh/SkyAPM/go2sky)
-[![GoDoc](https://godoc.org/github.com/tetratelabs/go2sky?status.svg)](https://godoc.org/github.com/tetratelabs/go2sky)
+[![GoDoc](https://godoc.org/github.com/marlonfan/go2sky?status.svg)](https://godoc.org/github.com/marlonfan/go2sky)
 
 
 **GO2Sky** is an instrument SDK library, written in Go, by following [Apache SkyWalking](https://github.com/apache/incubator-skywalking) tracing and metrics formats.
 
 # Installation
 ```
-$ go get -u github.com/tetratelabs/go2sky
+$ go get -u github.com/marlonfan/go2sky
 ```
 
 The API of this project is still evolving. The use of vendoring tool is recommended.
 
 # Quickstart
 
-By completing this quickstart, you will learn how to trace local methods. For more details, please view 
+By completing this quickstart, you will learn how to trace local methods. For more details, please view
 [the example](example_trace_test.go)
 
 ## Configuration
 
-GO2Sky can export traces to Apache SkyWalking OAP server or local logger. In the following example, we configure GO2Sky to export to OAP server, 
+GO2Sky can export traces to Apache SkyWalking OAP server or local logger. In the following example, we configure GO2Sky to export to OAP server,
 which is listening on `oap-skywalking` port `11800`, and all of the spans from this program will be associated with a service name `example`.
- 
+
  ```go
 r, err := reporter.NewGRPCReporter("oap-skywalking:11800")
 if err != nil {
@@ -34,7 +34,7 @@ tracer, err := go2sky.NewTracer("example", go2sky.WithReporter(r))
 
 ## Create span
 
-To create a span in a trace, we used the `Tracer` to start a new span. We indicate this as the root span because of 
+To create a span in a trace, we used the `Tracer` to start a new span. We indicate this as the root span because of
 passing `context.Background()`. We must also be sure to end this span, which will be show in [End span](#end-span).
 
 ```go
