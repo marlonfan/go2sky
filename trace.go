@@ -222,9 +222,14 @@ type ctxKey struct{}
 
 type refKey struct{}
 
-var ctxKeyInstance = ctxKey{}
+// var ctxKeyInstance = ctxKey{}
+var ctxKeyInstance = ContentKey
 
-var refKeyInstance = refKey{}
+const ContentKey = "SKY_CONTENT_KEY"
+const RefKey = "SKY_REF_KEY"
+
+// var refKeyInstance = refKey{}
+var refKeyInstance = RefKey
 
 //Reporter is a data transit specification
 type Reporter interface {
