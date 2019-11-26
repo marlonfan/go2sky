@@ -41,39 +41,15 @@ type middleware struct {
 }
 
 //Middleware gin middleware return HandlerFunc  with tracing.
-func Middleware(engine *gin.Engine, tracer *go2sky.Tracer) gin.HandlerFunc {
+func Middleware(engine *gin.Engine, tracer *go2sky.Tracer, self string) gin.HandlerFunc {
 	if engine == nil || tracer == nil {
 		return func(c *gin.Context) {
 			c.Next()
 		}
 	}
-	m := new(middleware)
 
 	return func(c *gin.Context) {
-		m.routeMapOnce.Do(func() {
-			routes := engine.Routes()
-			rm := make(map[string]map[string]routeInfo)
-			for _, r := range routes {
-				mm := rm[r.Method]
-				if mm == nil {
-					mm = make(map[string]routeInfo)
-					rm[r.Method] = mm
-				}
-				mm[r.Handler] = routeInfo{
-					operationName: c.Request.Host + c.Request.URL.Path,
-				}
-				m.routeMap = rm
-			}
-		})
-		var operationName string
-		handlerName := c.HandlerName()
-		if routeInfo, ok := m.routeMap[c.Request.Method][handlerName]; ok {
-			operationName = routeInfo.operationName
-		}
-		if operationName == "" {
-			operationName = c.Request.Method
-		}
-		span, ctx, err := tracer.CreateEntrySpan(c.Request.Context(), operationName, func() (string, error) {
+		span, ctx, err := tracer.CreateEntrySpan(c.Request.Context(), self+c.Request.RequestURI, func() (string, error) {
 			return c.Request.Header.Get(propagation.Header), nil
 		})
 		if err != nil {
@@ -82,7 +58,7 @@ func Middleware(engine *gin.Engine, tracer *go2sky.Tracer) gin.HandlerFunc {
 		}
 		span.SetComponent(httpServerComponentID)
 		span.Tag(go2sky.TagHTTPMethod, c.Request.Method)
-		span.Tag(go2sky.TagURL, c.Request.Host+c.Request.URL.Path)
+		span.Tag(go2sky.TagURL, self+c.Request.URL.Path)
 		span.SetSpanLayer(common.SpanLayer_Http)
 
 		c.Request = c.Request.WithContext(ctx)
